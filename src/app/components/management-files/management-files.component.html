@@ -1,5 +1,7 @@
 <p>Lista de archvos</p>
 
 <ul>
-  <li *ngFor="let item of files"></li>
+  <li *ngFor="let item of files">
+    <app-detail-file [item_file]="item"></app-detail-file>
+  </li>
 </ul>

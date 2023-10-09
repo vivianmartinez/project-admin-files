@@ -9,17 +9,19 @@ import { Subscription } from 'rxjs';
 })
 export class ManagementFilesComponent implements OnInit, OnDestroy{
     private subscription: Subscription = new Subscription();
-    public files: Array<object>;
+    public files: any;
 
     constructor(private _manageFiles: ManageFilesService) {
       this.files = [];
     }
 
     ngOnInit(): void {
-      this.subscription = this._manageFiles.getListFiles().subscribe((res:any) => {
+      this.subscription = this._manageFiles.getListFiles().subscribe((res:Array<object>) => {
 
-          this.files = res;
-          console.log(this.files);
+          const result = res.map(item=>{
+            return JSON.parse(JSON.stringify(item))
+          });
+          this.files = [...result];
       });
     }
 
