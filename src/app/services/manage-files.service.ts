@@ -10,7 +10,7 @@ import { catchError, retry } from "rxjs/operators";
 export class ManageFilesService {
   private url: string;
   constructor(private _http: HttpClient) {
-    this.url = 'http://localhost/api-files/services/read-files.php';
+    this.url = 'http://localhost/api-files/services/';
   }
 
   private handleError(error: HttpErrorResponse){
@@ -25,6 +25,17 @@ export class ManageFilesService {
 
   getListFiles(): Observable<any>
   {
-    return this._http.get(this.url).pipe(catchError(this.handleError));
+    return this._http.get(this.url+'read-files.php').pipe(catchError(this.handleError));
+  }
+
+  deleteFile(params: any){
+    return this._http.get(this.url+'delete-files.php', {params : params}).pipe(catchError(this.handleError));
+  }
+
+  renameFile(params: any){
+    return this._http.get(this.url+'rename-files.php', {params : params}).pipe(catchError(this.handleError));
+  }
+  saveFile(formData: any){
+    return this._http.post(this.url+'save-files.php', formData).pipe(catchError(this.handleError));
   }
 }

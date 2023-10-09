@@ -1,1 +1,43 @@
 /* You can add global styles to this file, and also import other style files */
+
+
+ul{
+  list-style: none;
+}
+.principal-li{
+  width: 50%;
+}
+li{
+  min-height: 40px;
+  font-size: 15px;
+  line-height: 40px;
+  color: #ffffff;
+}
+
+li:nth-of-type(even) :not(.principal-li){
+  background-color: rgb(173, 216, 204);
+}
+
+li:nth-child(odd) {
+  background-color: rgb(131, 195, 177);
+}
+
+.detail-li {
+    display: flex;
+    padding: 10px;
+}
+
+.detail-li li{
+  width: 50%;
+}
+li.actions {
+  width: 5%;
+  text-align: center;
+}
+li.actions-dir{
+  width: 10%;
+  text-align: center;
+}
+fa-icon.ng-fa-icon{
+  cursor: pointer;
+}

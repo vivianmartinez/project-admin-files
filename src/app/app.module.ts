@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { ManagementFilesComponent } from './components/management-files/management-files.component';
 import { DetailFileComponent } from './components/detail-file/detail-file.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     BrowserModule,
     HttpClientModule,
     FontAwesomeModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
