@@ -17,7 +17,6 @@ export class ManagementFilesComponent implements OnInit, OnDestroy{
 
     ngOnInit(): void {
       this.subscription = this._manageFiles.getListFiles().subscribe((res:Array<object>) => {
-
           const result = res.map(item=>{
             return JSON.parse(JSON.stringify(item))
           });
