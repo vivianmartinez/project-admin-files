@@ -3,6 +3,9 @@
     <app-detail-file [item_file]="item" (refresh)="refreshItems()"></app-detail-file>
   </li>
 </ul>
+<div *ngIf="route_current != '../files'">
+  <button (click)="backDirectory()">Back</button>
+</div>
 <form (ngSubmit)="onSubmit($event)">
   <label for="upload-file" class="upload">Select file
     <input id="upload-file" type="file" style="display: none;" [accept]="extensions_allowed" (change)="uploadFile($event)">

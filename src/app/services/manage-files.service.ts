@@ -23,9 +23,9 @@ export class ManageFilesService {
     return throwError(() => new Error('Something bad happened; please try again later.'));
   }
 
-  getListFiles(): Observable<any>
+  getListFiles(params:any): Observable<any>
   {
-    return this._http.get(this.url+'read-files.php').pipe(catchError(this.handleError));
+    return this._http.get(this.url+'read-files.php',{params: params}).pipe(catchError(this.handleError));
   }
 
   deleteFile(params: any){
@@ -36,6 +36,6 @@ export class ManageFilesService {
     return this._http.get(this.url+'rename-files.php', {params : params}).pipe(catchError(this.handleError));
   }
   saveFile(formData: any){
-    return this._http.post(this.url+'save-files.php', formData).pipe(catchError(this.handleError));
+    return this._http.post(this.url+'save-files.php',formData).pipe(catchError(this.handleError));
   }
 }

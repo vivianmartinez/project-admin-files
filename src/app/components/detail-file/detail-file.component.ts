@@ -1,9 +1,10 @@
-import { Component, Input, OnDestroy, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { faFile } from '@fortawesome/free-solid-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faEdit } from '@fortawesome/free-regular-svg-icons';
 import { faCaretSquareDown } from '@fortawesome/free-regular-svg-icons';
 import { ManageFilesService } from 'src/app/services/manage-files.service';
+import { RouteFilesService } from 'src/app/services/route-files.service';
 
 interface filemodel
 {
@@ -20,7 +21,7 @@ interface filemodel
   templateUrl: './detail-file.component.html',
   styleUrls: ['./detail-file.component.css']
 })
-export class DetailFileComponent implements OnDestroy {
+export class DetailFileComponent implements OnDestroy, OnInit {
 
   @Input()
   item_file: any;
@@ -35,8 +36,15 @@ export class DetailFileComponent implements OnDestroy {
 
   public on_edit: boolean = false;
   public rename_file: string = '';
+  public current_route: any;
 
-  constructor(private _manageFile: ManageFilesService) { }
+  constructor(private _manageFile: ManageFilesService, private _routeFileService: RouteFilesService ) { }
+
+  ngOnInit(): void{
+    this._routeFileService.current_route$.subscribe((res:any)=>{
+      this.current_route = res;
+    });
+  }
 
   ngOnDestroy(): void {
 
@@ -44,14 +52,11 @@ export class DetailFileComponent implements OnDestroy {
 
   delete(item_file:any)
   {
-
     const params = {
       'route' : item_file.route,
       'name_file' : item_file.name_file
     }
-
     this._manageFile.deleteFile(params).subscribe((res:any)=>{
-      console.log(res);
       this.refresh.emit();
     });
   }
@@ -74,5 +79,12 @@ export class DetailFileComponent implements OnDestroy {
       console.log(res);
       this.refresh.emit();
     });
+  }
+
+  nextDirectory(route:any):void
+  {
+    this.current_route += `/${route}`;
+    this._routeFileService.setDirectory(this.current_route);
+    console.log(this.current_route);
   }
 }

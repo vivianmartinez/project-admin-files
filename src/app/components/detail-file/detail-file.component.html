@@ -2,13 +2,13 @@
 <ng-container *ngIf="! on_edit else formedit" >
   <ul class="detail-li">
     <li><fa-icon [icon]="faFile"></fa-icon> {{item_file.name_file}} </li>
-    <li>{{item_file.size_file}}</li>
+    <li>{{item_file.route}}</li>
     <ng-container *ngIf="item_file.type_file != 'dir' else directory">
       <li class="actions"><fa-icon [icon]="faEdit" (click)="onEdit(item_file.name_file)"></fa-icon></li>
       <li class="actions"><fa-icon [icon]="faTrash" (click)="delete(item_file)"></fa-icon></li>
     </ng-container>
     <ng-template #directory>
-      <li class="actions-dir"><fa-icon [icon]="faArrow"></fa-icon></li>
+      <li class="actions-dir"><fa-icon [icon]="faArrow" (click)="nextDirectory(item_file.name_file)"></fa-icon></li>
     </ng-template>
   </ul>
 </ng-container>
