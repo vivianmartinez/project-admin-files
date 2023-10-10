@@ -1,20 +1,11 @@
 import { Component, Input, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
-import { faFile } from '@fortawesome/free-solid-svg-icons';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import { faEdit } from '@fortawesome/free-regular-svg-icons';
-import { faCaretSquareDown } from '@fortawesome/free-regular-svg-icons';
+import { faCheckCircle, faFile, faTrash, faRectangleXmark, faBookOpen } from '@fortawesome/free-solid-svg-icons';
+import { faFolderOpen, faEdit } from '@fortawesome/free-regular-svg-icons';
 import { ManageFilesService } from 'src/app/services/manage-files.service';
 import { RouteFilesService } from 'src/app/services/route-files.service';
-
-interface filemodel
-{
-  name_file: string,
-  type_file: string,
-  size_file: string,
-  route: string,
-  root: string
-}
-
+import { GlobalUrlApi } from 'src/app/services/global-url-api';
+import { DownloadFilesService } from 'src/app/services/download-files.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-detail-file',
@@ -29,28 +20,33 @@ export class DetailFileComponent implements OnDestroy, OnInit {
   @Output()
   refresh: EventEmitter<number> = new EventEmitter();
 
-  faFile  = faFile;
-  faTrash = faTrash;
-  faEdit  = faEdit;
-  faArrow = faCaretSquareDown;
+  faFile        = faFile;
+  faTrash       = faTrash;
+  faEdit        = faEdit;
+  faFolderOpen  = faFolderOpen;
+  faCheck       = faCheckCircle;
+  faXmark       = faRectangleXmark;
+  faBookOpen    = faBookOpen;
 
-  public on_edit: boolean = false;
+  public confirm_edit: boolean = false;
   public rename_file: string = '';
   public current_route: any;
+  public url_api = GlobalUrlApi.url_api;
+  private subscription: Subscription = new Subscription();
 
-  constructor(private _manageFile: ManageFilesService, private _routeFileService: RouteFilesService ) { }
+  constructor(private _manageFile: ManageFilesService, private _routeFileService: RouteFilesService) { }
 
   ngOnInit(): void{
-    this._routeFileService.current_route$.subscribe((res:any)=>{
+    this.subscription = this._routeFileService.current_route$.subscribe((res:any)=>{
       this.current_route = res;
     });
   }
 
   ngOnDestroy(): void {
-
+    this.subscription.unsubscribe();
   }
 
-  delete(item_file:any)
+  delete(item_file:any):void
   {
     const params = {
       'route' : item_file.route,
@@ -63,7 +59,7 @@ export class DetailFileComponent implements OnDestroy, OnInit {
 
   onEdit(file:any):void
   {
-      this.on_edit = true;
+      this.confirm_edit = true;
       this.rename_file = file;
   }
 
@@ -76,15 +72,23 @@ export class DetailFileComponent implements OnDestroy, OnInit {
       'rename': this.rename_file
     }
     this._manageFile.renameFile(params).subscribe((res:any)=>{
-      console.log(res);
       this.refresh.emit();
     });
+  }
+
+  abortEdit():void
+  {
+    this.confirm_edit = false;
   }
 
   nextDirectory(route:any):void
   {
     this.current_route += `/${route}`;
     this._routeFileService.setDirectory(this.current_route);
-    console.log(this.current_route);
+  }
+
+  public openFile(name:string):void
+  {
+    DownloadFilesService.downloadFile(`${this.url_api}${this.current_route}/`,name);
   }
 }

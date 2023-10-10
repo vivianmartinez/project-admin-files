@@ -1,14 +1,30 @@
+<div class="bar-directory">
+  <div>
+    <fa-icon [icon]="faServer" class="route-server"></fa-icon>{{route_current | slice : 3}}
+  </div>
+  <div *ngIf="route_current != '../files'">
+    <div class="btn-back"><fa-icon (click)="backDirectory()" [icon]="faSortUp"></fa-icon>
+      <span class="tooltip bck">back</span>
+    </div>
+  </div>
+</div>
 <ul class="principal-li">
+  <li class="head-data">
+    <div class="data-name">Name</div>
+    <div class="data-size">Size</div>
+    <div class="actions">Actions</div>
+  </li>
   <li *ngFor="let item of files">
     <app-detail-file [item_file]="item" (refresh)="refreshItems()"></app-detail-file>
   </li>
 </ul>
-<div *ngIf="route_current != '../files'">
-  <button (click)="backDirectory()">Back</button>
-</div>
-<form (ngSubmit)="onSubmit($event)">
-  <label for="upload-file" class="upload">Select file
-    <input id="upload-file" type="file" style="display: none;" [accept]="extensions_allowed" (change)="uploadFile($event)">
+<form (ngSubmit)="onSubmit($event)" class="upload-file">
+  <label for="upload-file">
+    <fa-icon [icon]="faUpload" class="btn-fa-up" (click)="reset()"></fa-icon>
+    <input #inputFile id="upload-file" type="file" style="display: none;" [accept]="extensions_allowed" (change)="uploadFile($event)">
   </label>
-  <button type="submit">Upload file</button>
+  <button type="submit" class="btn-files" [ngClass]="{'disabled-up': !onUpFile}" [ngStyle]="{'border': !onUpFile ? 'none' : '2px solid rgb(79, 135, 181)','background-color': !onUpFile ? '#cccccc' : 'rgb(79, 135, 181)'}">Upload file</button>
+  <div *ngIf="upFile != null">{{upFile.name}}</div>
+  <div *ngIf="message_error != null" class="error">{{message_error}}</div>
 </form>
+

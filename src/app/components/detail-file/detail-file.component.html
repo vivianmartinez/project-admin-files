@@ -1,20 +1,36 @@
-
-<ng-container *ngIf="! on_edit else formedit" >
-  <ul class="detail-li">
-    <li><fa-icon [icon]="faFile"></fa-icon> {{item_file.name_file}} </li>
-    <li>{{item_file.route}}</li>
+<ng-container *ngIf="! confirm_edit else formedit" >
+  <div class="detail-file">
+    <div class="data-name"><fa-icon [icon]="faFile"></fa-icon> {{item_file.name_file}} </div>
+    <div class="data-size">{{item_file.size_file}}</div>
     <ng-container *ngIf="item_file.type_file != 'dir' else directory">
-      <li class="actions"><fa-icon [icon]="faEdit" (click)="onEdit(item_file.name_file)"></fa-icon></li>
-      <li class="actions"><fa-icon [icon]="faTrash" (click)="delete(item_file)"></fa-icon></li>
+      <div class="actions"><fa-icon [icon]="faEdit" (click)="onEdit(item_file.name_file)"></fa-icon>
+        <span class="tooltip">rename</span>
+      </div>
+      <div class="actions"><fa-icon [icon]="faTrash" (click)="delete(item_file)"></fa-icon>
+        <span class="tooltip mdd">delete</span>
+      </div>
+      <div class="actions"><fa-icon [icon]="faBookOpen" (click)="openFile(item_file.name_file)"></fa-icon>
+        <span class="tooltip rgt">open file</span>
+      </div>
     </ng-container>
     <ng-template #directory>
-      <li class="actions-dir"><fa-icon [icon]="faArrow" (click)="nextDirectory(item_file.name_file)"></fa-icon></li>
+      <div class="actions directory"><fa-icon [icon]="faFolderOpen" (click)="nextDirectory(item_file.name_file)"></fa-icon>
+        <span class="tooltip mdd">open folder</span>
+      </div>
     </ng-template>
-  </ul>
+  </div>
 </ng-container>
 
 <ng-template #formedit>
-  <input type="text" [(ngModel)]="rename_file">
-  <button (click)="renameFile(item_file)">Rename</button>
-  <button>Cancel</button>
+  <div class="edit-file">
+    <div class="edit-data"><input type="text" [(ngModel)]="rename_file"></div>
+    <div class="edit-act">
+      <div class="actions"><fa-icon [icon]="faCheck" (click)="renameFile(item_file)">Rename</fa-icon>
+        <span class="tooltip mdd">confirm</span>
+      </div>
+      <div class="actions"><fa-icon [icon]="faXmark" (click)="abortEdit()">Cancel</fa-icon>
+        <span class="tooltip mdd">cancel</span>
+      </div>
+    </div>
+  </div>
 </ng-template>
