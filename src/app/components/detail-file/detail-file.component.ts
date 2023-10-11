@@ -1,11 +1,15 @@
 import { Component, Input, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { faCheckCircle, faFile, faTrash, faRectangleXmark, faBookOpen } from '@fortawesome/free-solid-svg-icons';
 import { faFolderOpen, faEdit } from '@fortawesome/free-regular-svg-icons';
+import { faFileText, faFileWord, faFileZipper, faFilePdf, faFilePowerpoint, faFileExcel, faFileCsv, faFileImage,faFileVideo, faFileAudio } from '@fortawesome/free-solid-svg-icons';
 import { ManageFilesService } from 'src/app/services/manage-files.service';
 import { RouteFilesService } from 'src/app/services/route-files.service';
 import { GlobalUrlApi } from 'src/app/services/global-url-api';
 import { DownloadFilesService } from 'src/app/services/download-files.service';
 import { Subscription } from 'rxjs';
+
+
+interface iconmodel{txt:any, docx:any, pdf:any, zip:any, xls:any, xlsx:any, csv:any, pptx:any, image:any, video:any, audio:any, dir:any, file:any};
 
 @Component({
   selector: 'app-detail-file',
@@ -20,16 +24,29 @@ export class DetailFileComponent implements OnDestroy, OnInit {
   @Output()
   refresh: EventEmitter<number> = new EventEmitter();
 
-  faFile        = faFile;
   faTrash       = faTrash;
   faEdit        = faEdit;
-  faFolderOpen  = faFolderOpen;
   faCheck       = faCheckCircle;
   faXmark       = faRectangleXmark;
   faBookOpen    = faBookOpen;
 
+  public icons_fa : iconmodel = { txt   : faFileText,
+                                  docx  : faFileWord,
+                                  pdf   : faFilePdf,
+                                  zip   : faFileZipper,
+                                  xls  : faFileExcel,
+                                  xlsx  : faFileExcel,
+                                  csv   : faFileCsv,
+                                  pptx  : faFilePowerpoint,
+                                  image : faFileImage,
+                                  video : faFileVideo,
+                                  audio : faFileAudio,
+                                  dir   : faFolderOpen,
+                                  file  : faFile };
+
   public confirm_edit: boolean = false;
   public rename_file: string = '';
+  public old_name_ext: string = 'txt';
   public current_route: any;
   public url_api = GlobalUrlApi.url_api;
   private subscription: Subscription = new Subscription();
@@ -60,7 +77,8 @@ export class DetailFileComponent implements OnDestroy, OnInit {
   onEdit(file:any):void
   {
       this.confirm_edit = true;
-      this.rename_file = file;
+      this.old_name_ext = file.type_file;
+      this.rename_file  = file.name_file.slice(0,file.name_file.lastIndexOf('.'));
   }
 
   renameFile(current_file:any):void
@@ -69,7 +87,7 @@ export class DetailFileComponent implements OnDestroy, OnInit {
     {
       'route' : current_file.route,
       'old_name' : current_file.name_file,
-      'rename': this.rename_file
+      'rename': `${this.rename_file}.${this.old_name_ext}`
     }
     this._manageFile.renameFile(params).subscribe((res:any)=>{
       this.refresh.emit();

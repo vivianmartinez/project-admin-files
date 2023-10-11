@@ -3,7 +3,6 @@ import { ManageFilesService } from 'src/app/services/manage-files.service';
 import { Subscription } from 'rxjs';
 import { RouteFilesService } from 'src/app/services/route-files.service';
 import { faUpload, faServer, faSortUp } from '@fortawesome/free-solid-svg-icons';
-import { AfterViewInit } from '@angular/core';
 import { ViewChild } from '@angular/core';
 
 @Component({
@@ -12,13 +11,16 @@ import { ViewChild } from '@angular/core';
   styleUrls: ['./management-files.component.css']
 })
 export class ManagementFilesComponent implements OnInit, OnDestroy{
-    private subscription: Subscription = new Subscription();
+
     public files: any;
-    public extensions_allowed = ['.jpg','.png','.gif','.txt','.pdf','.csv'];
+    public extensions_allowed = ['.jpg','.png','.gif','.txt','.pdf','.csv','.pptx','.doctx'];
     public upFile: File | any;
     public onUpFile: boolean = false;
     public route_current: any;
     public message_error: string | null = null;
+    private subscription: Subscription = new Subscription();
+    private subs_route: Subscription = new Subscription();
+    private subs_save: Subscription = new Subscription();
 
     faUpload = faUpload;
     faServer = faServer;
@@ -50,10 +52,12 @@ export class ManagementFilesComponent implements OnInit, OnDestroy{
 
     ngOnDestroy(): void {
      this.subscription.unsubscribe();
+     this.subs_route.unsubscribe();
+     this.subs_save.unsubscribe();
     }
 
     refreshItems(){
-      this._routeFileService.current_route$.subscribe((res:any)=>{
+      this.subs_route = this._routeFileService.current_route$.subscribe((res:any)=>{
         this.requestApi(res);
         this.reset();
       });
@@ -75,7 +79,7 @@ export class ManagementFilesComponent implements OnInit, OnDestroy{
       const form_data = new FormData();
       form_data.append('file', this.upFile);
       form_data.append('route', this.route_current);
-      this._manageFiles.saveFile(form_data).subscribe((res:any)=>{
+      this.subs_save = this._manageFiles.saveFile(form_data).subscribe((res:any)=>{
         this.refreshItems();
         if(res.hasOwnProperty('file_exists')){
           if(res.file_exists){
