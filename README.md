@@ -1,6 +1,19 @@
-# AdminFiles
+# File manager
+
+This is a file manager project created with Angular. This interacts with an API created in PHP.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.5.
+
+## It allows you:
+
+- Connect to the API through a service
+- Get all the files
+- Navigate between directories
+- You can see the route on which you are located and return to the previous one
+- Delete files
+- Open files
+- Rename files (validation is applied to the entered name)
+- Upload files
 
 ## Development server
 
