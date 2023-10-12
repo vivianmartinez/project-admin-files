@@ -2,7 +2,10 @@
 
 This is a file manager project created with Angular. This interacts with an API created in PHP.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.5.
+This Project was put into practice using the Linkedin Learning Advanced Angular course: File Management in PHP taught by Carlos Solís as a guide.
+However, for learning purposes I've transformed the code so that it has equivalent behavior and I've also added functionalities that are not covered in the course. 
+
+Project generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.5.
 
 ## It allows you:
 
