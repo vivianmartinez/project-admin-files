@@ -18,8 +18,17 @@ Project generated with [Angular CLI](https://github.com/angular/angular-cli) ver
 - Delete files
 - Open files
 - Rename files (validation is applied to the entered name)
+   ![Admin files 02](src/assets/images-project/admin-files-03.png)
 - Upload files
+   ![Admin files 02](src/assets/images-project/admin-files-04.png)
 
+## Install angular-fontawesome
+
+You need to install the [angular-fontawesome][1] package
+```
+$ ng add @fortawesome/angular-fontawesome@<version>
+```
+[1]: <https://github.com/FortAwesome/angular-fontawesome>
 
 ## Development server
 
