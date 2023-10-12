@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { faCheckCircle, faFile, faTrash, faRectangleXmark, faBookOpen } from '@fortawesome/free-solid-svg-icons';
 import { faFolderOpen, faEdit } from '@fortawesome/free-regular-svg-icons';
-import { faFileText, faFileWord, faFileZipper, faFilePdf, faFilePowerpoint, faFileExcel, faFileCsv, faFileImage,faFileVideo, faFileAudio } from '@fortawesome/free-solid-svg-icons';
+import { faFileText, faFileWord, faFileZipper, faFilePdf, faFilePowerpoint, faFileExcel, faFileCsv, faFileImage,faFileVideo, faFileAudio, faFolder } from '@fortawesome/free-solid-svg-icons';
 import { ManageFilesService } from 'src/app/services/manage-files.service';
 import { RouteFilesService } from 'src/app/services/route-files.service';
 import { GlobalUrlApi } from 'src/app/services/global-url-api';
@@ -29,19 +29,20 @@ export class DetailFileComponent implements OnDestroy, OnInit {
   faCheck       = faCheckCircle;
   faXmark       = faRectangleXmark;
   faBookOpen    = faBookOpen;
+  faFolderOpen  = faFolderOpen;
 
   public icons_fa : iconmodel = { txt   : faFileText,
                                   docx  : faFileWord,
                                   pdf   : faFilePdf,
                                   zip   : faFileZipper,
-                                  xls  : faFileExcel,
+                                  xls   : faFileExcel,
                                   xlsx  : faFileExcel,
                                   csv   : faFileCsv,
                                   pptx  : faFilePowerpoint,
                                   image : faFileImage,
                                   video : faFileVideo,
                                   audio : faFileAudio,
-                                  dir   : faFolderOpen,
+                                  dir   : faFolder,
                                   file  : faFile };
 
   public confirm_edit: boolean = false;

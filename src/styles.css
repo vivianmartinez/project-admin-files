@@ -41,7 +41,11 @@ li{
   color: rgb(79, 135, 181);
   border: 0.5px solid rgb(220, 221, 221);
 }
-.principal-li li:hover{
+.principal-li li:hover {
+  background-color: rgb(79, 135, 181);
+  color: #ffffff;
+}
+.principal-li li:hover .name-file{
   background-color: rgb(79, 135, 181);
   color: #ffffff;
 }
@@ -57,6 +61,10 @@ li.head-data .actions{
 }
 li.head-data:hover{
  background-color: initial;
+}
+.name-file{
+  margin-left: 5px;
+  color: #000;
 }
 .detail-file {
     display: flex;
