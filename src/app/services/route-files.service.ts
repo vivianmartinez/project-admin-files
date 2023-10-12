@@ -6,7 +6,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class RouteFilesService {
 
-  private current_route = new BehaviorSubject<string>('../files');
+  private current_route = new BehaviorSubject<string>('files');
   current_route$ = this.current_route.asObservable();
 
   constructor() { }

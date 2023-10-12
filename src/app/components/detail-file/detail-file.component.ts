@@ -113,6 +113,6 @@ export class DetailFileComponent implements OnDestroy, OnInit {
   // open and download file
   openFile(name:string):void
   {
-    DownloadFilesService.downloadFile(`${this.url_api}${this.current_route}/`,name);
+    DownloadFilesService.downloadFile(`${this.url_api}../${this.current_route}/`,name);
   }
 }

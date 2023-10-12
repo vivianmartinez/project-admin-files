@@ -1,9 +1,9 @@
 <div class="bar-directory">
   <div>
-    <fa-icon [icon]="faServer" class="route-server"></fa-icon>{{route_current | slice : 3}}
+    <fa-icon [icon]="faServer" class="route-server"></fa-icon>{{route_current}}
   </div>
-  <div *ngIf="route_current != '../files'">
-    <div class="btn-back"><fa-icon (click)="backDirectory()" [icon]="faSortUp"></fa-icon>
+  <div *ngIf="route_current != 'files'">
+    <div class="btn-back" (click)="backDirectory()"><fa-icon [icon]="faSortUp"></fa-icon>
       <span class="tooltip bck">back</span>
     </div>
   </div>
