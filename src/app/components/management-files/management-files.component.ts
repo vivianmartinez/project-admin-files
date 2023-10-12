@@ -55,7 +55,7 @@ export class ManagementFilesComponent implements OnInit, OnDestroy{
      this.subs_route.unsubscribe();
      this.subs_save.unsubscribe();
     }
-
+    //refresh data
     refreshItems(){
       this.subs_route = this._routeFileService.current_route$.subscribe((res:any)=>{
         this.requestApi(res);
@@ -89,7 +89,7 @@ export class ManagementFilesComponent implements OnInit, OnDestroy{
         }
       });
     }
-
+    // back to the previous route
     backDirectory():void
     {
       const back_route = this.route_current.slice(0,this.route_current.lastIndexOf('/'));

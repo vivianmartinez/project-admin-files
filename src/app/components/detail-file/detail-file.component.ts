@@ -63,7 +63,7 @@ export class DetailFileComponent implements OnDestroy, OnInit {
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
-
+  //delete file
   delete(item_file:any):void
   {
     const params = {
@@ -74,14 +74,14 @@ export class DetailFileComponent implements OnDestroy, OnInit {
       this.refresh.emit();
     });
   }
-
+  //activate input to rename file
   onEdit(file:any):void
   {
       this.confirm_edit = true;
-      this.old_name_ext = file.type_file;
-      this.rename_file  = file.name_file.slice(0,file.name_file.lastIndexOf('.'));
+      this.old_name_ext = file.type_file; // get file extension
+      this.rename_file  = file.name_file.slice(0,file.name_file.lastIndexOf('.')); //get name without extension
   }
-
+  //rename file
   renameFile(current_file:any):void
   {
     const params =
@@ -94,19 +94,19 @@ export class DetailFileComponent implements OnDestroy, OnInit {
       this.refresh.emit();
     });
   }
-
+  //cancel rename file
   abortEdit():void
   {
     this.confirm_edit = false;
   }
-
+  // go to the next route
   nextDirectory(route:any):void
   {
     this.current_route += `/${route}`;
     this._routeFileService.setDirectory(this.current_route);
   }
-
-  public openFile(name:string):void
+  // open and download file
+  openFile(name:string):void
   {
     DownloadFilesService.downloadFile(`${this.url_api}${this.current_route}/`,name);
   }
