@@ -50,6 +50,7 @@ export class DetailFileComponent implements OnDestroy, OnInit {
   public old_name_ext: string = 'txt';
   public current_route: any;
   public url_api = GlobalUrlApi.url_api;
+  public error_rename: string | null = null;
   private subscription: Subscription = new Subscription();
 
   constructor(private _manageFile: ManageFilesService, private _routeFileService: RouteFilesService) { }
@@ -91,7 +92,11 @@ export class DetailFileComponent implements OnDestroy, OnInit {
       'rename': `${this.rename_file}.${this.old_name_ext}`
     }
     this._manageFile.renameFile(params).subscribe((res:any)=>{
-      this.refresh.emit();
+      if(res.hasOwnProperty('error')){
+        this.error_rename = res.error;
+      }else{
+        this.refresh.emit();
+      }
     });
   }
   //cancel rename file

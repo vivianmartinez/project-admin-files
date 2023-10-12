@@ -41,8 +41,9 @@
 
 <ng-template #formedit>
   <div class="edit-file">
-    <div class="edit-data"><input type="text" [(ngModel)]="rename_file" pattern="^([\d\w])+([\-_]?[\d\w]*)$" #rename = "ngModel" required>
-      <span *ngIf="rename.touched && !rename.valid" [ngStyle]="{'color': 'orange','font-weight': 'bold'}">Invalid file name</span>
+    <div class="edit-data"><input type="text" [(ngModel)]="rename_file" pattern="^([\d\w])+([\-_]?[\d\w]*)*$" #rename = "ngModel" required>
+      <span *ngIf="!rename.valid" [ngStyle]="{'color': 'orange','font-weight': 'bold','background-color':'#fff', 'padding':'10px 20px'}">Invalid file name</span>
+      <span *ngIf="error_rename != null" [ngStyle]="{'color': 'orange','font-weight': 'bold','background-color':'#fff', 'padding':'10px 20px'}">{{error_rename}}</span>
     </div>
     <div class="edit-act">
       <ng-container *ngIf="rename.valid">
