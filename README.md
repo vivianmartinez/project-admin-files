@@ -11,12 +11,15 @@ Project generated with [Angular CLI](https://github.com/angular/angular-cli) ver
 
 - Connect to the API through a service
 - Get all the files
+   ![Admin files 01](src/assets/images-project/admin-files-01.png)
 - Navigate between directories
+   ![Admin files 02](src/assets/images-project/admin-files-02.png)
 - You can see the route on which you are located and return to the previous one
 - Delete files
 - Open files
 - Rename files (validation is applied to the entered name)
 - Upload files
+
 
 ## Development server
 
